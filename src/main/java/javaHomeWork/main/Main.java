@@ -39,6 +39,7 @@ public class Main {
                     MathMatrixOfLong first3 = MathMatrixOfLong.readFromFile(args[1]);
                     MathMatrixOfLong second3 = MathMatrixOfLong.readFromFile(args[2]);
                     MathMatrixOfLong result3 = printTimeOfExecute(() -> first3.strassenAlgorithm(second3));
+                    assert result3 != null;
                     result3.writeToFile(args[3]);
                     break;
                 default:
@@ -55,9 +56,9 @@ public class Main {
             MathMatrixOfLong result = task.call();
             System.out.println("Время выполнения: " + (System.currentTimeMillis() - start) + "мс.");
             return result;
-        } catch (Exception ignore) {
+        } catch (Exception e) {
+            throw new RuntimeException(e.toString());
         }
-        return null;
     }
 
 }

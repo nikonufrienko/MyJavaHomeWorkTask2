@@ -144,6 +144,8 @@ public class MathMatrixOfLong extends Matrix<Long> {
     }
 
     public MathMatrixOfLong strassenAlgorithm(MathMatrixOfLong other) {
+        if (this.width != other.height)
+            throw new ArithmeticException("Длина строк первой матр. не совпадает с длиной столбцов второй.");
         int targetSize = Math.max(Math.max(this.width, this.height), Math.max(other.height, other.width));
         int newSize = 1;
         while (newSize < targetSize) newSize *= 2;
