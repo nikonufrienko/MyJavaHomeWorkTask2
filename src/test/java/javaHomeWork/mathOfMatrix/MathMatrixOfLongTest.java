@@ -40,12 +40,12 @@ class MathMatrixOfLongTest {
         long start = System.currentTimeMillis();
         String first = a.oneThreadMultiplication(b).toString();
         long end = System.currentTimeMillis();
-        System.out.println("Один поток:" + String.valueOf(end-start));
+        System.out.println("Один поток:" + (end - start));
         for(int i = 1; i < 10; i++ ) {
             long start2 = System.currentTimeMillis();
             String second = a.parallelMultiplication(b, i).toString();
             long end2 = System.currentTimeMillis();
-            System.out.println("Многопоточка#" + i +":" + String.valueOf(end2 - start2));
+            System.out.println("Многопоточка#" + i +":" + (end2 - start2));
             Assertions.assertEquals(first, second);
         }
     }
@@ -59,44 +59,24 @@ class MathMatrixOfLongTest {
         System.out.println(end - start);
         Assertions.assertEquals(a,b);
     }
-    @Test
-    void mainTest() {
-        MathMatrixOfLong a = MathMatrixOfLong.generateBy(700,500, ((row, column) -> new Random().nextLong()));
-        MathMatrixOfLong b = MathMatrixOfLong.generateBy(500,700, ((row, column) -> new Random().nextLong()));
-        a.writeToFile("a.txt");
-        b.writeToFile("b.txt");
-        MathMatrixOfLong a1 = MathMatrixOfLong.readFromFile("a.txt");
-        MathMatrixOfLong b1 = MathMatrixOfLong.readFromFile("b.txt");
-        MathMatrixOfLong result = a.oneThreadMultiplication(b);
-        for (int i = 1; i < 14; i++) {
-            long start = System.currentTimeMillis();
-            a1.parallelMultiplication(b1, i).writeToFile("result.txt");
-            System.out.println(i+"/15 ->  " + (System.currentTimeMillis() - start) +" мс");
-            Assertions.assertEquals(result, MathMatrixOfLong.readFromFile("result.txt"));
-        }
-        Assertions.assertEquals(a,b);
-    }
+
     @Test
     void subMatrix() {
-        MathMatrixOfLong a = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> {
-            return new Random().nextLong() % 10;
-        }));
+        MathMatrixOfLong a = MathMatrixOfLong.generateBy(16, 16, ((row, column) -> new Random().nextLong() % 10));
+        System.out.println(a);
         long start = System.currentTimeMillis();
         for (int i = 0; i < a.height / 4; i++) {//rows
             for (int j = 0; j < a.width / 4; j++) {//columns
                 Matrix<Long> b = a.subMatrix(i * 4, j * 4, (i + 1) * 4, (j + 1) * 4);
+                System.out.println(b);
             }
         }
         System.out.println(System.currentTimeMillis() - start);
     }
     @Test
     void recursiveMultiplyTest() {
-        MathMatrixOfLong a = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> {
-            return new Random().nextLong() % 10;
-        }));
-        MathMatrixOfLong b = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> {
-            return new Random().nextLong() % 10;
-        }));
+        MathMatrixOfLong a = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> new Random().nextLong() % 10));
+        MathMatrixOfLong b = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> new Random().nextLong() % 10));
         long start1 = System.currentTimeMillis();
         MathMatrixOfLong r1 = a.parallelMultiplication(b,4);
         System.out.println("4 threads:" + (System.currentTimeMillis() - start1));
