@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MyJavaHomeWorkTask2.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MyJavaHomeWorkTask2_main_jar</output-path>
+    <root id="archive" name="MyJavaHomeWorkTask2.main.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="MyJavaHomeWorkTask2.main" />
+    </root>
+  </artifact>
+</component>
