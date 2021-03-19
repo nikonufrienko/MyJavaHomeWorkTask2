@@ -45,7 +45,8 @@
 --
 ![image](https://user-images.githubusercontent.com/25980970/111817831-8d0e0680-88ef-11eb-8187-c2407cad94f2.png)</br>
 ### Запуск с использованием алгоритма Штрассена в одном потоке:
-![image](https://user-images.githubusercontent.com/25980970/111818107-dd856400-88ef-11eb-8fbb-34215c665c1c.png)</br>
+![image](https://user-images.githubusercontent.com/25980970/111851711-65399580-8925-11eb-80f8-8aa614050fb5.png)
+
 --
 ## Вывод:
 1.  Минимальное время работы достигается при использовании 4-х потоков, это обусловлено тем, что у меня 4-x поточный процессор (Pentium G4560).</br>
