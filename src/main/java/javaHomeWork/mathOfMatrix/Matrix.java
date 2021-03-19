@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 
 public class Matrix<T> {
-    protected final List<List<T>> value;
+    private final List<List<T>> value;
     public int height;
     public int width;
 
@@ -85,5 +85,10 @@ public class Matrix<T> {
             targetValue.add(tempList);
         }
         value = targetValue;
+    }
+    public Matrix(Matrix<T> other) {
+        this.value = new ArrayList<>(other.value);
+        this.height = other.height;
+        this.width = other.width;
     }
 }

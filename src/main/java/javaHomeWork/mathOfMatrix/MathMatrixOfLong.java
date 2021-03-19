@@ -87,7 +87,7 @@ public class MathMatrixOfLong extends Matrix<Long> {
     }
 
     public MathMatrixOfLong(Matrix<Long> matrix) {
-        super(matrix.value);
+        super(matrix);
     }
 
     public static MathMatrixOfLong readFromFile(String path) {
@@ -147,8 +147,10 @@ public class MathMatrixOfLong extends Matrix<Long> {
         if (this.width != other.height)
             throw new ArithmeticException("Длина строк первой матр. не совпадает с длиной столбцов второй.");
         int targetSize = Math.max(Math.max(this.width, this.height), Math.max(other.height, other.width));
-        int newSize = 1;
-        while (newSize < targetSize) newSize *= 2;
+        int pow2 = 1;
+        while (targetSize/(pow2) >= 128) pow2 *= 2;
+        int a = (targetSize/pow2) + 1;
+        int newSize = a * pow2;
         MathMatrixOfLong first =
                 new MathMatrixOfLong(this.horizontalConcatenate(zeros(this.height, newSize - this.width))
                         .verticalConcatenate(zeros(newSize - this.height, newSize)));

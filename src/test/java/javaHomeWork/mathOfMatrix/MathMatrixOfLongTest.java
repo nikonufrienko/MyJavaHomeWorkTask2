@@ -75,15 +75,14 @@ class MathMatrixOfLongTest {
     }
     @Test
     void recursiveMultiplyTest() {
-        MathMatrixOfLong a = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> new Random().nextLong() % 10));
-        MathMatrixOfLong b = MathMatrixOfLong.generateBy(1024, 1024, ((row, column) -> new Random().nextLong() % 10));
+        MathMatrixOfLong a = MathMatrixOfLong.generateBy(321, 532, ((row, column) -> new Random().nextLong() % 10));
+        MathMatrixOfLong b = MathMatrixOfLong.generateBy(532, 321, ((row, column) -> new Random().nextLong() % 10));
         long start1 = System.currentTimeMillis();
-        MathMatrixOfLong r1 = a.parallelMultiplication(b,4);
-        System.out.println("4 threads:" + (System.currentTimeMillis() - start1));
+        MathMatrixOfLong r1 = a.oneThreadMultiplication(b);
+        System.out.println("oneThread:" + (System.currentTimeMillis() - start1));
         long start2 = System.currentTimeMillis();
         MathMatrixOfLong r2 = a.strassenAlgorithm(b);
         System.out.println("recursive:" + (System.currentTimeMillis() - start2));
-        System.out.println(r1.width+" "+r1.height + " " + r2.width + " "+ r2.height);
         Assertions.assertEquals(r1, r2);
 
     }
