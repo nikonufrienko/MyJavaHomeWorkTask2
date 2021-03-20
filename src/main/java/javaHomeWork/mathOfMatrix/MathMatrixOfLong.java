@@ -1,6 +1,5 @@
 package javaHomeWork.mathOfMatrix;
 
-import javaHomeWork.exceptions.IllegalFilePathException;
 
 import java.io.*;
 import java.util.*;
@@ -53,7 +52,7 @@ public class MathMatrixOfLong extends Matrix<Long> {
         return result;
     }
 
-    public void writeToFile(String path) {
+    public void writeToFile(String path) throws IOException {
         try (FileWriter writer = new FileWriter(path)) {
             writer.write(height + " " + width + "\n");
             for (int r = 0; r < height; r++) {
@@ -61,8 +60,6 @@ public class MathMatrixOfLong extends Matrix<Long> {
                     writer.write(this.get(r, c).toString() + " ");
                 writer.write("\n");
             }
-        } catch (IOException e) {
-            throw new IllegalFilePathException("Неправильный путь!!");
         }
     }
 
@@ -90,7 +87,7 @@ public class MathMatrixOfLong extends Matrix<Long> {
         super(matrix);
     }
 
-    public static MathMatrixOfLong readFromFile(String path) {
+    public static MathMatrixOfLong readFromFile(String path) throws IOException {
         try (FileReader reader = new FileReader(path)) {
             BufferedReader advancedReader = new BufferedReader(reader);
             String descriptionLine = advancedReader.readLine();
@@ -106,8 +103,6 @@ public class MathMatrixOfLong extends Matrix<Long> {
 
             }
             return new MathMatrixOfLong(heightOfNewMatrix, widthOfNewMatrix, new ArrayList<>(output));
-        } catch (IOException e) {
-            throw new IllegalFilePathException("Неправильный путь!!");
         }
     }
 
@@ -119,8 +114,8 @@ public class MathMatrixOfLong extends Matrix<Long> {
             throw new IllegalArgumentException("Количество потоков должно быть не менее одного.");
         MathMatrixOfLong result = getEmptyMatrix(this.height, other.width);
         List<Thread> threadList = new LinkedList<>();
+        int cellsPerThread = (result.width * result.height) / threadsNum;
         for (int i = 0; i < threadsNum; i++) {
-            int cellsPerThread = (result.width * result.height) / threadsNum;
             int start = cellsPerThread * i;
             int end;
             if (i == threadsNum - 1) end = cellsPerThread * (i + 1) + ((result.width * result.height) % threadsNum);
@@ -148,8 +143,8 @@ public class MathMatrixOfLong extends Matrix<Long> {
             throw new ArithmeticException("Длина строк первой матр. не совпадает с длиной столбцов второй.");
         int targetSize = Math.max(Math.max(this.width, this.height), Math.max(other.height, other.width));
         int pow2 = 1;
-        while (targetSize/(pow2) >= 128) pow2 *= 2;
-        int a = (targetSize/pow2) + 1;
+        while (targetSize / (pow2) >= 128) pow2 *= 2;
+        int a = (targetSize / pow2) + 1;
         int newSize = a * pow2;
         MathMatrixOfLong first =
                 new MathMatrixOfLong(this.horizontalConcatenate(zeros(this.height, newSize - this.width))

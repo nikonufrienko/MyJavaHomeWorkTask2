@@ -44,9 +44,9 @@ public class Matrix<T> {
     }
 
     public Matrix<T> subMatrix(int r1,int c1,int r2,int c2) {
-        List<List<T>> result = new ArrayList<>(value.subList(r1, r2));
-        for (int i = 0; i < r2 - r1; i++)
-            result.set(i , result.get(i).subList(c1,c2));
+        List<List<T>> result = new ArrayList<>();
+        for (int r = r1; r < r2 ; r++)
+            result.add(value.get(r).subList(c1,c2));
         return new Matrix<>(result);
     }
 
@@ -87,7 +87,7 @@ public class Matrix<T> {
         value = targetValue;
     }
     public Matrix(Matrix<T> other) {
-        this.value = new ArrayList<>(other.value);
+        this.value = other.value;
         this.height = other.height;
         this.width = other.width;
     }

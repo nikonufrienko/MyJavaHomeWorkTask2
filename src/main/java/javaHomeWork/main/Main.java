@@ -2,6 +2,7 @@ package javaHomeWork.main;
 
 import javaHomeWork.mathOfMatrix.MathMatrixOfLong;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
@@ -42,12 +43,14 @@ public class Main {
                     assert result3 != null;
                     result3.writeToFile(args[3]);
                     break;
-                default:
-                    throw new IndexOutOfBoundsException();
+                default: System.out.println("Неверные аргументы командной строки!");
             }
         } catch (IndexOutOfBoundsException exception) {
             System.out.println("Неверные аргументы командной строки!");
+        } catch (IOException e) {
+            System.out.println("Неправильный путь файла!");
         }
+
     }
 
     private static MathMatrixOfLong printTimeOfExecute(Callable<MathMatrixOfLong> task) {
